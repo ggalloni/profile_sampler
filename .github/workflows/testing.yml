@@ -69,8 +69,13 @@ jobs:
       shell: bash -el {0}
       run: |
         flake8 profiler --select=E713,E704,E703,E714,E741,E10,E11,E20,E22,E23,E25,E27,E301,E302,E304,E9,F405,F406,F5,F6,F7,F8,W1,W2,W3,W6 --show-source --statistics
+    
+    - name: Run cobaya install and tests
+      shell: bash -el {0}
+      run: |
+        pytest profiler --cov -vv -s -n 2 --no-flaky-report
   
     - name: Run MPI tests
       shell: bash -el {0}
       run: |
-        mpiexec -np 2 coverage run --parallel-mode -m pytest -x -m mpi tests/ --no-flaky-report
+        mpiexec -np 2 coverage run --parallel-mode -m pytest -x -m mpi profiler --no-flaky-report
