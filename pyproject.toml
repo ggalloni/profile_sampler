@@ -12,6 +12,12 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+  "cobaya>=3.5.4",
+]
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-cov"]
 
 [project.urls]
 Homepage = "https://github.com/ggalloni/profile_sampler"
