@@ -1,5 +1,5 @@
 [project]
-name = "profile_sampler"
+name = "profiler"
 version = "0.0.1"
 authors = [
     { name = "Giacomo Galloni" },
