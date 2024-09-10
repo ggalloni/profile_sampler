@@ -73,9 +73,9 @@ jobs:
     - name: Run cobaya install and tests
       shell: bash -el {0}
       run: |
-        pytest profiler --cov -vv -s -n 2 --no-flaky-report
+        python -m pytest -vv profiler --cov=profiler --cov-report=xml:coverage.xml
   
     - name: Run MPI tests
       shell: bash -el {0}
       run: |
-        mpiexec -np 2 coverage run --parallel-mode -m pytest -x -m mpi profiler --no-flaky-report
+        mpiexec -np 2 python -m pytest -vv profiler
