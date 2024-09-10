@@ -1,6 +1,6 @@
 # Profile Sampler for Cobaya
 
-[![Testing & coverage](https://github.com/ggalloni/profile_sampler/actions/workflows/testing.yml/badge.svg)](https://github.com/ggalloni/profile_sampler/actions/workflows/testing.yml)
+[![Testing](https://github.com/ggalloni/profile_sampler/actions/workflows/testing.yml/badge.svg)](https://github.com/ggalloni/profile_sampler/actions/workflows/testing.yml)
 
 This package provides a sampler for the [Cobaya](https://cobaya.readthedocs.io)
 framework that allows obtaining the profile likelihood of a given parameter of interest.
