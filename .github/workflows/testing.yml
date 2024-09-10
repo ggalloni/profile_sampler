@@ -84,4 +84,4 @@ jobs:
       if: matrix.pydist == 'ANACONDA'
       shell: bash -el {0}
       run: |
-        cobaya-run profiler/examples/run_profile_sampler.yaml
+        cobaya-run ./profiler/examples/run_profile_sampler.yaml
