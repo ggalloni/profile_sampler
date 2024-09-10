@@ -9,7 +9,7 @@ params:
   b: [-1, 1]
 
 sampler:
-  profile_sampler:  # or 'profile_sampler.Profile' or 'profile_sampler'
+  profile:  # or 'profile.Profile' or 'profile'
     ignore_prior: True
     profiled_param: a
     profiled_values: [-0.5, 0, 0.5]
