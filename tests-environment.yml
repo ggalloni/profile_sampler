@@ -3,13 +3,13 @@ channels:
   - defaults
   - conda-forge
 dependencies:
-  - cobaya
   - coverage
   - pytest
   - mpi4py
   - openmpi
   - pip
   - pip:
+    - cobaya
     - flake8
     - flaky
     - pytest-xdist
