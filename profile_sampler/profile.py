@@ -1,5 +1,5 @@
 r"""
-.. module:: samplers.Profile
+.. module:: profile_sampler.Profile
 
 :Synopsis: Posterior/likelihood *profiling*.
 :Author: Giacomo Galloni
@@ -20,7 +20,7 @@ To take advantage of a previous run with a Monte Carlo sampler, either:
 
 When called from a Python script, Cobaya's ``run`` function returns the updated info
 and the products described below in the method
-:func:`samplers.profile.Profile.products` (see below).
+:func:`profile_sampler.Profile.products` (see below).
 
 Independently from the minimizer used, the profiler will run a sequential for loop over
 the requested profiled points (depending on the set of likelihoods, this can be very fast

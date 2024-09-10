@@ -14,8 +14,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/CobayaSampler/example_sampler"
-Issues = "https://github.com/CobayaSampler/example_sampler/issues"
+Homepage = "https://github.com/ggalloni/profile_sampler"
+Issues = "https://github.com/ggalloni/profile_sampler/issues"
 
 [build-system]
 requires = ["setuptools"]
