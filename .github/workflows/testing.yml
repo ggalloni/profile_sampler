@@ -36,7 +36,7 @@ jobs:
 
     - name: Unit tests
       run: |
-        python -m pytest -vv profile_sampler --cov=profile_sampler --cov-report=xml:coverage.xml
+        python -m pytest -vv profiler --cov=profiler --cov-report=xml:coverage.xml
 
     - name: Report Coverage (codecov)
       if: matrix.os == 'ubuntu-latest'
