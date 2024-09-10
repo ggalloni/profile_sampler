@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-test = ["pytest"]
+test = ["pytest", "flaky", "mpi4py"]
 
 [project.urls]
 Homepage = "https://github.com/ggalloni/profile_sampler"

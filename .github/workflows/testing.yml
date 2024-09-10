@@ -10,36 +10,67 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        python-version: ["3.9", "3.10", "3.11"]
+        include:
+          - name: "Anaconda: jammy LTS Python (fast; pip CAMB)"
+            os: ubuntu-latest
+            pydist: "ANACONDA"
+          - name: "Latest Python 3.12"
+            os: ubuntu-latest
+            python-version: 3.12
+            mpi: openmpi
+          - name: "OS X Python 3.8"
+            os: macos-latest
+            python-version: 3.8
+            mpi: openmpi
+          - name: "Windows Python 3.12"
+            os: windows-latest
+            python-version: 3.12
+            mpi: intelmpi
 
     steps:
+    - run: ln -s $(which gfortran-14) /usr/local/bin/gfortran
+      if: matrix.os == 'macos-latest'
+
+    - run: gfortran --version
+
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Set up Python ${{ matrix.python-version }}
+      if: matrix.pydist != 'ANACONDA'
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-
-    - name: Set gfortran link on macos-latest
-      if: matrix.os == 'macos-latest'
-      run: |
-        set -x
-        sudo ln -s /opt/homebrew/bin/gfortran-12 /usr/local/bin/gfortran
-        gfortran --version
-
-    - name: Install dependencies via pip
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install .[test]
-
-    - name: Unit tests
-      run: |
-        python -m pytest -vv profiler
-
-    - name: Report Coverage (codecov)
-      if: matrix.os == 'ubuntu-latest'
-      uses: codecov/codecov-action@v4
+  
+    - name: Set up Miniconda
+      if: matrix.pydist == 'ANACONDA'
+      uses: conda-incubator/setup-miniconda@v3
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
+        auto-activate-base: false
+        activate-environment: tests-environment
+        environment-file: tests-environment.yml
+  
+    - name: Install mpi
+      if: matrix.pydist != 'ANACONDA'
+      uses: mpi4py/setup-mpi@v1
+      with:
+        mpi: ${{ matrix.mpi }}
+
+    - name: Install dependencies (pip)
+      if: matrix.pydist != 'ANACONDA'
+      run: |
+        pip install mpi4py -i https://pypi.anaconda.org/mpi4py/simple
+        pip install pytest-cov flaky cobaya coverage flake8 numba
+  
+    - name: Run flake8
+      shell: bash -el {0}
+      run: |
+        flake8 profiler --select=E713,E704,E703,E714,E741,E10,E11,E20,E22,E23,E25,E27  E301,E302,E304,E9,F405,F406,F5,F6,F7,F8,W1,W2,W3,W6 --show-source --statistics
+  
+    - name: Run MPI tests
+      shell: bash -el {0}
+      run: |
+        mpiexec -np 2 coverage run --parallel-mode -m pytest -x -m mpi tests/ --no-flaky-report

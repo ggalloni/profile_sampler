@@ -1,0 +1,16 @@
+name: tests-environment
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - cobaya
+  - coverage
+  - pytest
+  - mpi4py
+  - openmpi
+  - pip
+  - pip:
+    - flake8
+    - flaky
+    - pytest-xdist
+    - pytest-cov
