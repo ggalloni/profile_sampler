@@ -1,5 +1,5 @@
 r"""
-.. module:: profile.Profile
+.. module:: profiler.Profiler
 
 :Synopsis: Posterior/likelihood *profiling*.
 :Author: Giacomo Galloni
@@ -20,7 +20,7 @@ To take advantage of a previous run with a Monte Carlo sampler, either:
 
 When called from a Python script, Cobaya's ``run`` function returns the updated info
 and the products described below in the method
-:func:`profile.Profile.products` (see below).
+:func:`profiler.Profiler.products` (see below).
 
 Independently from the minimizer used, the profiler will run a sequential for loop over
 the requested profiled points (depending on the set of likelihoods, this can be very fast
@@ -114,7 +114,7 @@ _bobyqa_errors = {
         "singular linear system."}
 
 
-class Profile(Minimize, CovmatSampler):
+class Profiler(Minimize, CovmatSampler):
     file_base_name = 'profile'
 
     profiled_param: str
